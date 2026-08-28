@@ -3,7 +3,7 @@
  * Render giao diện, xử lý sự kiện, âm thanh Web Audio API, tìm kiếm và quay xúc xắc
  */
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   // 1. Khởi tạo 3D Dice Background
   let diceBg = null;
   try {
@@ -12,13 +12,19 @@ document.addEventListener('DOMContentLoaded', () => {
     console.warn("WebGL / Three.js canvas init note:", err);
   }
 
-  // 2. Lấy dữ liệu dự đoán từ Engine
+  // 2. Nạp dữ liệu XSMB Thật (Từ API Live & Cache)
+  await LotteryData.initData();
+
+  // 3. Lấy dữ liệu dự đoán từ Engine sau khi có số liệu thật
   const predictions = PredictionEngine.getPredictions();
   const allNumbers = LotteryData.getAllNumbers();
+  const latestDraw = LotteryData.getLatestDrawInfo();
 
-  // 3. Cập nhật ngày hiển thị
+  // 4. Cập nhật ngày hiển thị & thông tin kỳ quay thực tế
   const drawDateEls = document.querySelectorAll('.draw-date-text');
-  drawDateEls.forEach(el => el.textContent = predictions.drawDate);
+  drawDateEls.forEach(el => {
+    el.textContent = predictions.drawDate + (latestDraw ? ` (Căn cứ KQ ${latestDraw.date} - ĐB: ${latestDraw.special})` : '');
+  });
 
   // 4. Web Audio API Sound Generator (Không cần file mp3 ngoài)
   const soundEngine = {
