@@ -109,4 +109,8 @@ const PredictionEngine = (() => {
   };
 })();
 
-window.PredictionEngine = PredictionEngine;
+if (typeof window !== 'undefined') {
+  window.PredictionEngine = PredictionEngine;
+} else if (typeof global !== 'undefined') {
+  global.PredictionEngine = PredictionEngine;
+}

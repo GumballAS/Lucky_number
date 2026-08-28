@@ -4,7 +4,8 @@
  */
 
 const LotteryData = (() => {
-  const rawDraws = window.REAL_XSMB_DRAWS || [];
+  const getRawDraws = () => (typeof window !== 'undefined' ? window.REAL_XSMB_DRAWS : global.REAL_XSMB_DRAWS) || [];
+  let rawDraws = getRawDraws();
   let numbersDB = {};
   let latestDrawInfo = null;
 
@@ -261,4 +262,8 @@ const LotteryData = (() => {
   };
 })();
 
-window.LotteryData = LotteryData;
+if (typeof window !== 'undefined') {
+  window.LotteryData = LotteryData;
+} else if (typeof global !== 'undefined') {
+  global.LotteryData = LotteryData;
+}
