@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description"
+    content="Website Dự Đoán Lô Đề XSMB - Soi cầu 2 số cuối Xổ Số Miền Bắc với phân tích tỷ lệ %, lý do chi tiết, chu kỳ gan và lần về gần nhất. Giao diện 3D xúc xắc sống động.">
+  <meta name="keywords"
+    content="dự đoán lô đề, soi cầu xsmb, bạch thủ lô, song thủ lô, đề đặc biệt, 2 số cuối xsmb, thống kê lô gan">
+  <title>Dự Đoán Lô Đề XSMB - 3D Dice Matrix Analytics</title>
+
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+
+  <!-- Three.js 3D Engine Library (Local with CDN fallback) -->
+  <script src="js/three.min.js"></script>
+</head>
+
+<body>
+
+  <!-- 3D Canvas Background (3 Con Xúc Xắc Xoay Động) -->
+  <canvas id="diceCanvas"></canvas>
+  <div class="bg-overlay"></div>
+
+  <!-- Main Application Wrapper -->
+  <div class="app-container">
+
+    <!-- Header Section -->
+    <header class="site-header">
+      <div class="brand-logo">
+        <div class="brand-icon">🎲</div>
+        <div class="brand-info">
+          <h1>DỰ ĐOÁN LÔ ĐỀ XSMB</h1>
+          <p>PHÂN TÍCH SOI CẦU 2 SỐ CUỐI • CÔNG NGHỆ XÁC SUẤT 3D</p>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <div class="draw-badge">
+          <span class="live-dot"></span>
+          <span>KỲ QUAY: <strong class="draw-date-text">Hôm nay</strong></span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero / Action Banner -->
+    <section class="hero-banner">
+      <span class="hero-tag">✨ THUẬT TOÁN SOI CẦU ĐỈNH CAO 2026</span>
+      <h2 class="hero-title">
+        Dự Đoán <span class="text-gradient-gold">Bạch Thủ & Đề Đặc Biệt</span> XSMB
+      </h2>
+      <p class="hero-desc">
+        Hệ thống phân tích ma trận dữ liệu 100 con số (00 - 99): Cung cấp chi tiết <strong>Lý do soi cầu</strong>,
+        <strong>Tỉ lệ trúng (%)</strong>, <strong>Chu kỳ chưa ra (Gan)</strong> và <strong>Lần gần nhất nổ</strong> kèm
+        giải thưởng.
+      </p>
+
+      <div class="hero-actions">
+        <button id="btnRollDice" class="btn-roll-dice">
+          🎲 LẮC XÚC XẮC XIN SỐ HÔM NAY
+        </button>
+        <button id="btnScrollSearch" class="btn-search-quick">
+          🔍 TRA CỨU NHANH 00 - 99
+        </button>
+      </div>
+    </section>
+
+    <!-- Navigation Tabs -->
+    <nav class="nav-tabs-wrapper" role="tablist">
+      <button class="tab-btn active" data-target="tab-btl-stl">
+        ⭐ Bạch Thủ & Song Thủ Lô
+      </button>
+      <button class="tab-btn" data-target="tab-de-dac-biet">
+        👑 Đề Đặc Biệt (2 Số Cuối)
+      </button>
+      <button class="tab-btn" data-target="tab-lo-xien-kep">
+        ✨ Lô Kép & Lô Xiên 2
+      </button>
+      <button class="tab-btn" data-target="tab-lo-gan">
+        📊 Thống Kê Chu Kỳ Gan
+      </button>
+      <button class="tab-btn" data-target="tab-lookup">
+        🔢 Tra Cứu 100 Con Số (00-99)
+      </button>
+      <button class="tab-btn" data-target="tab-dan-de">
+        📋 Dàn Đề Chọn Lọc VIP
+      </button>
+    </nav>
+
+    <!-- Tab 1: Bạch Thủ Lô & Song Thủ Lô -->
+    <section id="tab-btl-stl" class="tab-content active">
+      <div class="section-header">
+        <h3 class="section-title">⭐ SOI CẦU BẠCH THỦ & SONG THỦ LÔ MIỀN BẮC</h3>
+        <p class="section-subtitle">Chốt số trọng tâm có xác suất nổ cao nhất, kết hợp cầu Bạc nhớ và nhịp rơi chu kỳ
+          vàng</p>
+      </div>
+      <div id="btl-container"></div>
+    </section>
+
+    <!-- Tab 2: Đề Đặc Biệt -->
+    <section id="tab-de-dac-biet" class="tab-content">
+      <div class="section-header">
+        <h3 class="section-title">👑 DỰ ĐOÁN 2 SỐ CUỐI GIẢI ĐẶC BIỆT (ĐỀ ĐẦU ĐUÔI)</h3>
+        <p class="section-subtitle">Phân tích cầu chạm, cầu tổng và các cặp số giải đặc biệt tâm điểm</p>
+      </div>
+      <div id="de-container"></div>
+    </section>
+
+    <!-- Tab 3: Lô Kép & Lô Xiên 2 -->
+    <section id="tab-lo-xien-kep" class="tab-content">
+      <div class="section-header">
+        <h3 class="section-title">✨ LÔ KÉP VIP & CẶP XIÊN 2 ĐẸP NHẤT</h3>
+        <p class="section-subtitle">Chọn lọc theo biên độ dao động và quy luật tương sinh âm dương ngũ hành</p>
+      </div>
+      <div id="xien-kep-container"></div>
+    </section>
+
+    <!-- Tab 4: Thống Kê Lô Gan -->
+    <section id="tab-lo-gan" class="tab-content">
+      <div class="section-header">
+        <h3 class="section-title">📊 BẢNG THỐNG KÊ LÔ GAN (SỐ NGÀY CHƯA RA)</h3>
+        <p class="section-subtitle">Cảnh báo những con số đang giữ chu kỳ gan dài và ngưỡng gan cực đại lịch sử</p>
+      </div>
+      <div id="gan-table-container"></div>
+    </section>
+
+    <!-- Tab 5: Tra Cứu 100 Con Số (00 - 99) -->
+    <section id="tab-lookup" class="tab-content">
+      <div class="section-header">
+        <h3 class="section-title">🔢 TRA CỨU TOÀN DIỆN 100 CẶP SỐ (00 - 99)</h3>
+        <p class="section-subtitle">Nhập số hoặc nhấp vào từng ô để xem ngay báo cáo phân tích chi tiết</p>
+      </div>
+
+      <div class="inspector-box">
+        <div class="search-input-group">
+          <input type="number" id="searchInput" min="0" max="99" placeholder="Nhập số từ 00 đến 99..." />
+          <button id="btnInspectSearch" class="btn-inspect">🔍 Tra Cứu Ngay</button>
+        </div>
+
+        <div style="text-align: center; margin-bottom: 0.5rem; color: #94a3b8; font-size: 0.85rem;">
+          HOẶC CHỌN TRỰC TIẾP TỪ BẢNG SỐ DƯỚI ĐÂY:
+        </div>
+
+        <div id="matrix-100-container" class="matrix-grid"></div>
+      </div>
+    </section>
+
+    <!-- Tab 6: Dàn Đề VIP -->
+    <section id="tab-dan-de" class="tab-content">
+      <div class="section-header">
+        <h3 class="section-title">📋 DÀN ĐỀ CHỌN LỌC BẤT BẠI 10 & 20 SỐ</h3>
+        <p class="section-subtitle">Dàn số kết hợp bảo toàn vốn, thích hợp cho lối chơi an toàn bền vững</p>
+      </div>
+      <div id="dan-de-container"></div>
+    </section>
+
+    <!-- Footer Disclaimer -->
+    <footer
+      style="margin-top: 3rem; text-align: center; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.08); color: #64748b; font-size: 0.82rem;">
+      <p>💡 <em>Lưu ý: Mọi phân tích và dự đoán trên website đều dựa trên thuật toán thống kê xác suất toán học và quy
+          luật số học dân gian nhằm mục đích tham khảo giải trí.</em></p>
+      <p style="margin-top: 0.5rem;">© 2026 Dự Đoán Lô Đề XSMB 3D • Chúc quý bạn luôn may mắn và phát tài!</p>
+    </footer>
+
+  </div>
+
+  <!-- Modal Tra Cứu Chi Tiết 1 Con Số -->
+  <div id="numberModal" class="modal-overlay">
+    <div class="modal-container">
+      <button id="modalClose" class="modal-close">&times;</button>
+      <div id="modalCardBody"></div>
+    </div>
+  </div>
+
+  <!-- Modal Quẻ Thần Tài Khi Lắc 3 Xúc Xắc 3D -->
+  <div id="luckyForecastModal" class="modal-overlay">
+    <div class="modal-container" style="max-width: 780px;">
+      <button id="luckyModalClose" class="modal-close">&times;</button>
+      <div id="luckyModalBody"></div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toastMsg" class="toast-msg"></div>
+
+  <!-- Scripts -->
+  <script src="js/lottery-data.js"></script>
+  <script src="js/prediction-engine.js"></script>
+  <script src="js/dice-background.js"></script>
+  <script src="js/app.js"></script>
+</body>
+
+</html>
