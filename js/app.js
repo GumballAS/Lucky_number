@@ -1,9 +1,4 @@
-/**
- * MAIN APP CONTROLLER
- * Render giao diện, xử lý sự kiện, âm thanh Web Audio API, tìm kiếm và quay xúc xắc
- */
-
-document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener('DOMContentLoaded', () => {
   // 1. Khởi tạo 3D Dice Background
   let diceBg = null;
   try {
@@ -12,18 +7,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     console.warn("WebGL / Three.js canvas init note:", err);
   }
 
-  // 2. Nạp dữ liệu XSMB Thật (Từ API Live & Cache)
-  await LotteryData.initData();
-
-  // 3. Lấy dữ liệu dự đoán từ Engine sau khi có số liệu thật
+  // 2. Lấy dữ liệu dự đoán từ Engine (Dữ liệu thực tế 100%)
   const predictions = PredictionEngine.getPredictions();
   const allNumbers = LotteryData.getAllNumbers();
   const latestDraw = LotteryData.getLatestDrawInfo();
 
-  // 4. Cập nhật ngày hiển thị & thông tin kỳ quay thực tế
+  // 3. Cập nhật ngày hiển thị & thông tin kỳ quay thực tế
   const drawDateEls = document.querySelectorAll('.draw-date-text');
   drawDateEls.forEach(el => {
-    el.textContent = predictions.drawDate + (latestDraw ? ` (Căn cứ KQ ${latestDraw.date} - ĐB: ${latestDraw.special})` : '');
+    el.textContent = predictions.drawDate + (latestDraw ? ` (Dữ liệu kỳ quay ngày ${latestDraw.date} - ĐB: ${latestDraw.special})` : '');
   });
 
   // 4. Web Audio API Sound Generator (Không cần file mp3 ngoài)
@@ -97,7 +89,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             </div>
             <div class="rate-badge-box">
               <span class="rate-val">${item.winRate}%</span>
-              <span class="rate-label">Xác suất nổ</span>
+              <span class="rate-label">Xác suất thống kê</span>
             </div>
           </div>
 
@@ -118,8 +110,8 @@ document.addEventListener('DOMContentLoaded', async () => {
               <span class="detail-icon">⏳</span>
               <div class="detail-text">
                 <strong>Thời gian chưa ra:</strong>
-                <span>${item.daysOmitted} ngày</span>
-                <span class="badge-gan ${ganClass}">[${ganText} - Max: ${item.maxGan} ngày]</span>
+                <span style="color: #fff; font-weight: 700;">${item.daysOmitted} ngày (lần)</span>
+                <span class="badge-gan ${ganClass}">[${ganText} - Gan max: ${item.maxGan} ngày]</span>
               </div>
             </div>
 
@@ -127,15 +119,16 @@ document.addEventListener('DOMContentLoaded', async () => {
               <span class="detail-icon">📅</span>
               <div class="detail-text">
                 <strong>Lần gần nhất ra:</strong>
-                <span>${item.lastDate} (${item.lastPrize})</span>
+                <span style="color: #ffd700; font-weight: 600;">${item.lastDate}</span>
+                <span style="display: block; font-size: 0.8rem; color: #94a3b8;">${item.lastPrize}</span>
               </div>
             </div>
 
             <div class="detail-row">
               <span class="detail-icon">📈</span>
               <div class="detail-text">
-                <strong>Tần suất 30 ngày:</strong>
-                <span>${item.frequency30Days} lần xuất hiện</span>
+                <strong>Tần suất 30 kỳ quay:</strong>
+                <span>${item.frequency30Days} lần về (Chu kỳ: ~${item.averageCycle} ngày/lần)</span>
               </div>
             </div>
           </div>
